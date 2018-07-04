@@ -9,9 +9,9 @@
 
 <body>
     <script>
-        lgContainer = 9;
-        smContainer = 4;
-        targetNumber = 6;
+        lgContainer = 31;
+        smContainer = 5;
+        targetNumber = 11;
 
         lgNumb = lgContainer;
         smNumb = smContainer;
@@ -27,8 +27,10 @@
         stepCounter02 = 0;
         stepCounter03 = 0;
 
+        modNumb = lgContainer % smContainer;
+        range = lgContainer - smContainer;
 
-
+        gcdArray = [];
 
         solved = function () {
             console.log("======================================================");
@@ -36,7 +38,7 @@
             console.log("The value of lgHolder is: " + lgHolder + ".");
             console.log("The number of steps to solve is " + stepCounter03 + ".");
             console.log("We gotta winner!");
-        }
+        };
 
         start = function () {
             if (smHolder != targetNumber && lgHolder != targetNumber) {
@@ -45,12 +47,43 @@
                 console.log("smHolder: " + smHolder + " || lgHolder: " + lgHolder);
                 valueChecker();
             };
-
             stepCounter++
         };
 
+        error = function () {
 
+            console.log("error");
+        };
 
+        preCheck = function () {
+            if (modNumb == 0 && lgContainer % targetNumber != 0) {
+                // for (i = smContainer; i <= range; i++) {
+                //     if (i == targetNumber){
+                //         gcdArray.push(i);
+                //         console.log ("range: " + range);
+                //         console.log ("i: " + i);
+                //         console.log ("array: " + gcdArray);
+                //         start();
+                //     } else {
+                //         error();
+                //     };
+                // };
+                for (i = smContainer; i <= range; i++) {
+                        gcdArray.push(i);
+                        console.log ("range: " + range);
+                        console.log ("i: " + i);
+                        console.log ("array: " + gcdArray);
+                    if (i == targetNumber){
+                        console.log("i contains targetNumber" + i);
+                        start();
+                    } else {
+                        error();
+                    };
+                };                
+            } else {
+                start();
+            };
+        };
 
         smallRemainder = function () {
             lgHolder = 0;
@@ -81,7 +114,7 @@
                 stepCounter++;
                 stepCounter02++;
                 stepCounter03++;
-                valueChecker();
+                // valueChecker();
             };
 
             if (lgHolder > lgContainer && lgHolder != targetNumber) {
@@ -91,31 +124,33 @@
 
             } else if (lgHolder == targetNumber || smHolder == targetNumber) {
                 valueChecker();
-            };  
+            };
         };
 
         fillSmall = function () {
             smHolder = lgRemainder;
             lgRemainder = 0;
-            console.log("smHolder (B4 while loop): " + smHolder);
-            while (smHolder <= smContainer) {
+            console.log("smHolder = lgRemainder (B4 while loop): " + smHolder);
+            while (smHolder <= smContainer && smHolder != targetNumber) {
+
+                console.log("smHolder (before smHolder + lgContainer): --->" + smHolder);
+                smHolder = smHolder + lgContainer; // simulates lgall container poured into large container until full (any exess will be assigned as new lgRemainder and then assigned to new smHolder size)
                 console.log("smHolder (in while loop): " + smHolder);
-                console.log("smRemainder (in while loop): " + smRemainder);
-                console.log("smContainer (in while loop): " + smContainer);
-                smHolder = smHolder + smContainer;
-                if (smHolder == targetNumber) {
-                    stepCounter++
-                    solved();
-                };
-                stepCounter++
+
+                stepCounter++;
+                stepCounter02++;
+                stepCounter03++;
+                valueChecker();
             };
+
             if (smHolder > smContainer && smHolder != targetNumber) {
-                smRemainder = smHolder - smContainer;
+                lgRemainder = smHolder - smContainer;
+                stepCounter03++;
+                valueChecker();
+
+            } else if (smHolder == targetNumber || lgHolder == targetNumber) {
+                valueChecker();
             };
-            console.log("smHolder is HERE TOO: " + smHolder);
-            console.log("smRemainder: " + smRemainder);
-            stepCounter++
-            valueChecker();
         };
 
         valueChecker = function () {
@@ -135,7 +170,8 @@
             }
             stepCounter++
         };
-        start(); // ########### [1]
+        preCheck(); // ########### [1]
+        // start(); // ########### [2]
         //****************************************
 
         dumpLarge = function () {
