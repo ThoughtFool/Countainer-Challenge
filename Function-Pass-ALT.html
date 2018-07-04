@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Countainer Challenge</title>
+</head>
+
+<body>
+    <script>
+        lgContainer = 42;
+        smContainer = 23;
+        targetNumber = 4;
+
+        lgNumb = lgContainer;
+        smNumb = smContainer;
+
+        lgRemainder = 0;
+        smRemainder = 0;
+
+        lgHolder = 0;
+        smHolder = 0;
+
+        stepCounter = 0;
+        stepCounter01 = 0;
+        stepCounter02 = 0;
+        stepCounter03 = 0;
+
+
+
+
+        solved = function () {
+            console.log("======================================================");
+            console.log("The value of smHolder is: " + smHolder + ".");
+            console.log("The value of lgHolder is: " + lgHolder + ".");
+            console.log("The number of steps to solve is " + stepCounter03 + ".");
+            console.log("We gotta winner!");
+        }
+
+        start = function () {
+            if (smHolder != targetNumber && lgHolder != targetNumber) {
+                fillLarge();
+            } else {
+                console.log("smHolder: " + smHolder + " || lgHolder: " + lgHolder);
+                valueChecker();
+            };
+
+            stepCounter++
+        };
+
+
+
+
+        smallRemainder = function () {
+            // lgHolder = lgContainer - smRemainder;
+            lgHolder = 0;
+            smRemainder;
+            console.log("function called - smallRemainder: " + smRemainder);
+            stepCounter++
+            fillLarge();
+        };
+        largeRemainder = function () {
+            smHolder = 0;
+            lgRemainder;
+            console.log("function called - lgRemainder: " + lgRemainder);
+            stepCounter++
+            fillSmall();
+        };
+
+        //****************************************
+        fillLarge = function () {
+            lgHolder = smRemainder;
+            smRemainder = 0;
+            console.log("lgHolder = smRemainder (B4 while loop): " + lgHolder);
+            while (lgHolder <= lgContainer && lgHolder != targetNumber) {
+
+                console.log("lgHolder (before lgHolder + smContainer): --->" + lgHolder);
+                lgHolder = lgHolder + smContainer; // simulates small container poured into large container until full (any exess will be assigned as new smRemainder and then assigned to new lgHolder size)
+                console.log("lgHolder (in while loop): " + lgHolder);
+                // if (lgHolder == targetNumber) {
+                //    valueChecker();
+                // };
+                stepCounter++;
+                stepCounter02++;
+                stepCounter03++;
+                valueChecker();
+            };
+
+            if (lgHolder > lgContainer && lgHolder != targetNumber) {
+                smRemainder = lgHolder - lgContainer;
+                stepCounter03++;
+                valueChecker();
+            };
+        };
+
+        fillSmall = function () {
+            smHolder = lgRemainder;
+            lgRemainder = 0;
+            console.log("smHolder (B4 while loop): " + smHolder);
+            while (smHolder <= smContainer) {
+                console.log("smHolder (in while loop): " + smHolder);
+                console.log("smRemainder (in while loop): " + smRemainder);
+                console.log("smContainer (in while loop): " + smContainer);
+                smHolder = smHolder + smContainer;
+                if (smHolder == targetNumber) {
+                    stepCounter++
+                    solved();
+                };
+                stepCounter++
+            };
+            if (smHolder > smContainer && smHolder != targetNumber) {
+                smRemainder = smHolder - smContainer;
+            };
+            console.log("smHolder is HERE TOO: " + smHolder);
+            console.log("smRemainder: " + smRemainder);
+            stepCounter++
+            valueChecker();
+        };
+
+        valueChecker = function () {
+            if (smRemainder != 0) {
+                console.log("smRemainder (in valueChecker()): " + smRemainder);
+                smallRemainder();
+
+            } else if (lgRemainder != 0) {
+                console.log("lgRemainder (in valueChecker()): " + lgRemainder);
+                largeRemainder();
+
+            } else if (lgHolder == targetNumber || smHolder == targetNumber) {
+                solved();
+
+            } else {
+                console.log("try again");
+            }
+            stepCounter++
+        };
+        start(); // ########### [1]
+
+
+
+
+
+
+
+        //****************************************
+
+        dumpLarge = function () {
+
+        };
+        dumpSmall = function () {
+
+        };
+    </script>
+</body>
+
+</html>
