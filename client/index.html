@@ -14,11 +14,12 @@
 </head>
 
 <body>
-    <!-- <div class="fullscreen-bg">
-        <video loop muted autoplay poster="images/water-jugs-still.png" class="fullscreen-bg__video">
-            <source src="images/water-jugs.mp4" type="video/mp4">
+    <div class="fullscreen-bg">
+        <video loop muted autoplay class="fullscreen-bg__video">
+        <!-- <video loop muted autoplay poster="images/pouring-water-still.png" class="fullscreen-bg__video"> -->
+            <source src="images/pouring-water.mp4" type="video/mp4">
         </video>
-    </div> -->
+    </div>
 
     <div class="overlay"></div>
 
@@ -34,27 +35,27 @@
         <div class="form-area col-md-6">
 
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <div class="row">
                         <p class="directions">How many steps do you think it will take? When you're ready to find out,
                             then "Solve Riddle"!</p>
                     </div>
-                    <!-- <div class="sloshing-jug row">
-                        <img src="./images/sloshing-jug.png" alt="sloshing-jug">
-                    </div> -->
+                    <div class="water-jugs row">
+                        <img src="./images/water-jugs.png" alt="water-jugs">
+                    </div>
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <form action="/" method="POST">
                         <div class="form-group">
                             <input type="text" id="large-jug-size" name="large-jug-size"
                                 placeholder="Enter large size..." value="" required=true><br>
                             <input type="text" id="small-jug-size" name="small-jug-size"
-                                placeholder="Enter small size..." value="" required=true><br><br>
+                                placeholder="Enter small size..." value="" required=true><br>
                             <input type="text" id="target-number" name="target-number"
-                                placeholder="Enter target number..." value="" required=true><br><br>
+                                placeholder="Enter target number..." value="" required=true><br>
                             <input type="text" id="prediction" name="prediction" placeholder="Enter prediction..."
-                                value="" required=true><br><br>
+                                value="" required=true><br>
                             <input type="button" value="Solve Riddle" id="solve-riddle" class="btn btn-success">
                         </div>
                     </form>
