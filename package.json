@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ThoughtFool/Countainer-Challenge/issues"
   },
-  "homepage": "https://github.com/ThoughtFool/Countainer-Challenge#readme"
+  "homepage": "https://github.com/ThoughtFool/Countainer-Challenge#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

@@ -1,6 +1,23 @@
-const largeNumber = 5;
-const smallNumber = 3;
-const targetNumber = 4;
+const largeJugInputElem = document.getElementById("large-jug-size");
+const smallJugInputElem = document.getElementById("small-jug-size");
+const targetNumberInputElem = document.getElementById("target-number");
+const predictionInputElem = document.getElementById("prediction");
+
+const totalSteps = document.getElementById("total-steps");
+const solveRiddleBtn = document.getElementById("solve-riddle");
+const displayFormArea = document.querySelector(".form-area");
+const displayStepsNeeded = document.querySelector(".steps-area");
+const comparisonSpan = document.querySelector(".comparison");
+const playAgainBtn = document.getElementById("play-again");
+
+// let counterArr = []; TODO: use with two paths to solve
+
+solveRiddleBtn.addEventListener("click", solveRiddle);
+
+let largeNumber = 0;
+let smallNumber = 0;
+let targetNumber = 0;
+let userPrediction = 0;
 
 let lgRemainder = 0;
 let smRemainder = 0;
@@ -12,12 +29,36 @@ let stepCounter = 0;
 
 console.log = () => {};
 
+function solveRiddle() {
+    largeNumber = parseInt(largeJugInputElem.value);
+    smallNumber = parseInt(smallJugInputElem.value);
+    targetNumber = parseInt(targetNumberInputElem.value);
+    userPrediction = parseInt(predictionInputElem.value);
+
+    if (targetNumber != null) {
+        displayFormArea.style.display = "none";
+        displayStepsNeeded.style.display = "block";
+        playAgainBtn.style.display = "block";
+        // comparisonSpan.innerHTML = `Total steps: ${
+        //     targetNumberInputElem.value
+        // }, Your Prediction: ${predictionInputElem.value}. Difference: ${
+        //     predictionInputElem.value - targetNumberInputElem.value
+        // }`;
+
+        return start();
+    } else {
+        alert("all fields required!");
+    }
+}
+
 function solved() {
     console.info("*******************************************");
     console.info("The value of smallContainer is: " + smallContainer + ".");
     console.info("The value of largeContainer is: " + largeContainer + ".");
     console.info("The number of steps to solve is " + stepCounter + ".");
     console.info("We gotta winner!");
+
+    totalSteps.innerText = `The number of steps to solve is ${stepCounter}.`;
 }
 
 function start() {
@@ -139,8 +180,6 @@ function valueChecker() {
         console.log("try again");
     }
 }
-start(); // ########### [1]
-//****************************************
 
 function dumpLarge(pourAmount) {
     if (pourAmount < containerSize) {
@@ -173,3 +212,4 @@ function dumpSmall(pourAmount, containerSize) {
         return (largeContainer = largeContainer + containerSize);
     }
 }
+
