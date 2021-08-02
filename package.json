@@ -1,0 +1,20 @@
+{
+  "name": "countainer-challenge",
+  "version": "1.0.0",
+  "description": "Trivia challenge! Accepted!",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThoughtFool/Countainer-Challenge.git"
+  },
+  "author": "Heyou ThoughtFool",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ThoughtFool/Countainer-Challenge/issues"
+  },
+  "homepage": "https://github.com/ThoughtFool/Countainer-Challenge#readme"
+}
