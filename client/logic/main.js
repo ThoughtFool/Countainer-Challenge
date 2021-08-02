@@ -13,6 +13,7 @@ const playAgainBtn = document.getElementById("play-again");
 // let counterArr = []; TODO: use with two paths to solve
 
 solveRiddleBtn.addEventListener("click", solveRiddle);
+playAgainBtn.addEventListener("click", playAgain);
 
 let largeNumber = 0;
 let smallNumber = 0;
@@ -50,6 +51,15 @@ function solveRiddle() {
         alert("all fields required!");
     }
 }
+
+function playAgain() {
+    displayFormArea.style.display = "block";
+    displayStepsNeeded.style.display = "none";
+    playAgainBtn.style.display = "none";
+    comparisonSpan.innerHTML = "";
+    totalSteps.innerHTML = "";
+    // counterArr = [];
+};
 
 function solved() {
     console.info("*******************************************");
