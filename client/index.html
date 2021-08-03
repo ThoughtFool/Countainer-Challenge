@@ -16,7 +16,7 @@
 <body>
     <div class="fullscreen-bg">
         <video loop muted autoplay class="fullscreen-bg__video">
-        <!-- <video loop muted autoplay poster="images/pouring-water-still.png" class="fullscreen-bg__video"> -->
+            <!-- <video loop muted autoplay poster="images/pouring-water-still.png" class="fullscreen-bg__video"> -->
             <source src="images/pouring-water.mp4" type="video/mp4">
         </video>
     </div>
@@ -49,11 +49,14 @@
                     <form action="/" method="POST">
                         <div class="form-group">
                             <input type="text" id="large-jug-size" name="large-jug-size"
-                                placeholder="Enter large size..." value="" required=true><br>
+                                placeholder="Enter large size..." value="" type="number" maxlength="2"
+                                required=true><br>
                             <input type="text" id="small-jug-size" name="small-jug-size"
-                                placeholder="Enter small size..." value="" required=true><br>
+                                placeholder="Enter small size..." value="" type="number" maxlength="1"
+                                required=true><br>
                             <input type="text" id="target-number" name="target-number"
-                                placeholder="Enter target number..." value="" required=true><br>
+                                placeholder="Enter target number..." value="" type="number" maxlength="2"
+                                required=true><br>
                             <input type="text" id="prediction" name="prediction" placeholder="Enter prediction..."
                                 value="" required=true><br>
                             <input type="button" value="Solve Riddle" id="solve-riddle" class="btn btn-success">
@@ -69,6 +72,7 @@
                 <h2>Steps in Process:</h2>
             </div>
             <div id="total-steps"></div>
+            <div id="steps-info"></div>
         </div>
     </div>
     <script src="./logic/main.js"></script>

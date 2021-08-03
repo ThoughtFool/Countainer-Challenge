@@ -2,7 +2,7 @@
 Unsolvable Riddle? Challenge Accepted!
 
 ## The Challenge
-Everyone has come across the riddle of the 3 jugs, in one form another.  How can you fill one jug exactly given the limitations?  Your water/liquid source is unlimited, but you've only got 2 other jubs in order to help you get to your targert volume.  This simple app helps you find that solution faster.
+Everyone has come across the riddle of the 3 jugs, in one form another.  How can you fill one jug exactly given the limitations?  Your water/liquid source is unlimited, but you've only got 2 other jugs in order to help you get to your target volume.  This simple app helps you find that solution faster.
 
 ### CHALLENGE ACCEPTED!
 https://count-tainer-challenge.herokuapp.com/

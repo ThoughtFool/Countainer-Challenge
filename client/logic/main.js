@@ -9,6 +9,9 @@ const displayFormArea = document.querySelector(".form-area");
 const displayStepsNeeded = document.querySelector(".steps-area");
 const comparisonSpan = document.querySelector(".comparison");
 const playAgainBtn = document.getElementById("play-again");
+const stepsInfoElem = document.getElementById("steps-info");
+const overlayElem = document.querySelector(".overlay");
+const bgVidElem = document.querySelector(".fullscreen-bg__video");
 
 // let counterArr = []; TODO: use with two paths to solve
 
@@ -28,7 +31,11 @@ let smallContainer = 0;
 
 let stepCounter = 0;
 
+let stepsArray = [];
+
 console.log = () => {};
+
+document.body.style.backgroundColor = "rgb(137, 128, 138)";
 
 function solveRiddle() {
     largeNumber = parseInt(largeJugInputElem.value);
@@ -37,7 +44,8 @@ function solveRiddle() {
     userPrediction = parseInt(predictionInputElem.value);
 
     if (targetNumber != null) {
-        displayFormArea.style.display = "none";
+        if (largeNumber % smallNumber !== 0) {
+            displayFormArea.style.display = "none";
         displayStepsNeeded.style.display = "block";
         playAgainBtn.style.display = "block";
         // comparisonSpan.innerHTML = `Total steps: ${
@@ -45,10 +53,13 @@ function solveRiddle() {
         // }, Your Prediction: ${predictionInputElem.value}. Difference: ${
         //     predictionInputElem.value - targetNumberInputElem.value
         // }`;
-
         return start();
+
+        } else {
+            alert("Sorry, it will not work if the large size can be divided evenly by the small size. Please change either one of those values.");
+        };
     } else {
-        alert("all fields required!");
+        alert("All fields required!");
     }
 }
 
@@ -56,19 +67,43 @@ function playAgain() {
     displayFormArea.style.display = "block";
     displayStepsNeeded.style.display = "none";
     playAgainBtn.style.display = "none";
-    comparisonSpan.innerHTML = "";
+    // comparisonSpan.innerHTML = "";
     totalSteps.innerHTML = "";
+    largeNumber = 0;
+    smallNumber = 0;
+    targetNumber = 0;
+    userPrediction = 0;
+
+    lgRemainder = 0;
+    smRemainder = 0;
+
+    largeContainer = 0;
+    smallContainer = 0;
+
+    stepCounter = 0;
+
+    stepsArray = [];
+
+    bgVidElem.style.display = "block";
+    overlayElem.style.opacity = .75;
+
     // counterArr = [];
 };
 
 function solved() {
-    console.info("*******************************************");
-    console.info("The value of smallContainer is: " + smallContainer + ".");
-    console.info("The value of largeContainer is: " + largeContainer + ".");
-    console.info("The number of steps to solve is " + stepCounter + ".");
-    console.info("We gotta winner!");
+    stepsArray.push("*******************************************");
+    stepsArray.push("The value of smallContainer is: " + smallContainer + ".");
+    stepsArray.push("The value of largeContainer is: " + largeContainer + ".");
+    stepsArray.push("The number of steps to solve is " + stepCounter + ".");
+    stepsArray.push("We gotta winner!");
+
+    bgVidElem.style.display = "none"
+    overlayElem.style.opacity = 0;
 
     totalSteps.innerText = `The number of steps to solve is ${stepCounter}.`;
+    stepsArray.forEach((step, index) => {
+        stepsInfoElem.innerHTML += `${step} <br>`;
+    });
 }
 
 function start() {
@@ -87,13 +122,13 @@ function start() {
 
 function smallRemainder() {
     largeContainer = 0;
-    console.info("function called - smallRemainder: " + smRemainder);
+    stepsArray.push("function called - smallRemainder: " + smRemainder);
     fillLarge(smRemainder);
 }
 
 function largeRemainder() {
     smallContainer = 0;
-    console.info("function called - lgRemainder: " + lgRemainder);
+    stepsArray.push("function called - lgRemainder: " + lgRemainder);
     fillSmall(lgRemainder);
 }
 
@@ -103,24 +138,23 @@ function largeRemainder() {
 
 function fillLarge() {
     if (smRemainder > 0) {
-        console.info(
-            `Remainder left in SMALL container equals: ${smRemainder}`
-        );
+        
+        stepsArray.push(`Remainder left in SMALL container equals: ${smRemainder}`);
         largeContainer = smRemainder;
-        console.info(
+        stepsArray.push(
             `Remainder poured into LARGE container. LARGE now equals: ${largeContainer}`
         );
     }
 
     smRemainder = 0;
-    console.info("===========================================");
-    console.info("FILL LARGE: SMALL POURS");
-    console.info("===========================================");
+    stepsArray.push("===========================================");
+    stepsArray.push("FILL LARGE: SMALL POURS");
+    stepsArray.push("===========================================");
 
     let pourCount = 0;
     while (largeContainer <= largeNumber && largeContainer != targetNumber) {
         pourCount++;
-        console.info("LARGE container: ", { pourCount });
+        stepsArray.push("LARGE container: ", pourCount);
 
         // simulates small container poured into large container until full (any excess will be assigned as new smRemainder and then be assigned to new largeContainer size)
         largeContainer = dumpSmall(0, smallNumber);
@@ -134,7 +168,7 @@ function fillLarge() {
         smRemainder = largeContainer - largeNumber;
         largeContainer = 0;
 
-        console.info(`Remainder left inside Small container: ${smRemainder}`);
+        stepsArray.push(`Remainder left inside Small container: ${smRemainder}`);
 
         // stepCounter++;
     }
@@ -145,14 +179,14 @@ function fillLarge() {
 function fillSmall() {
     smallContainer = lgRemainder;
     lgRemainder = 0;
-    console.info("===========================================");
-    console.info("FILL SMALL: LARGE POURS");
-    console.info("===========================================");
+    stepsArray.push("===========================================");
+    stepsArray.push("FILL SMALL: LARGE POURS");
+    stepsArray.push("===========================================");
 
     let pourCount = 0;
     while (smallContainer <= smallNumber) {
         pourCount++;
-        console.info("SMALL container: ", { pourCount });
+        stepsArray.push("SMALL container: ", pourCount);
 
         smallContainer = smallContainer + smallNumber;
         if (smallContainer == targetNumber) {
@@ -174,12 +208,12 @@ function fillSmall() {
 
 function valueChecker() {
     console.log("checking containers");
-    console.info("***** valueChecker function fires! *****");
+    stepsArray.push("***** valueChecker function fires! *****");
 
     if (smRemainder != 0) {
         smallRemainder();
     } else if (lgRemainder != 0) {
-        console.info("lgRemainder (in valueChecker()): " + lgRemainder);
+        stepsArray.push("lgRemainder (in valueChecker()): " + lgRemainder);
         largeRemainder();
     } else if (
         largeContainer == targetNumber ||
@@ -194,8 +228,8 @@ function valueChecker() {
 function dumpLarge(pourAmount) {
     if (pourAmount < containerSize) {
         pourAmount++;
-        console.info(`..... pour 1 out .....`);
-        console.info(
+        stepsArray.push(`..... pour 1 out .....`);
+        stepsArray.push(
             `Large into Small: ${pourAmount} out of ${containerSize} pours`
         );
 
@@ -208,12 +242,12 @@ function dumpLarge(pourAmount) {
 function dumpSmall(pourAmount, containerSize) {
     if (pourAmount < containerSize) {
         pourAmount++;
-        console.info(`..... pour 1 out .....`);
-        console.info(
+        stepsArray.push(`..... pour 1 out .....`);
+        stepsArray.push(
             `Small into Large: ${pourAmount} out of ${containerSize} pours`
         );
 
-        console.info(
+        stepsArray.push(
             `LARGE container now equals: ${largeContainer + pourAmount}`
         );
 
